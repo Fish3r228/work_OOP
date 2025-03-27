@@ -20,7 +20,7 @@ class TestCategory(unittest.TestCase):
         self.assertEqual(Category.total_products, 2)
 
     def test_empty_category(self):
-        """Тест пустой категории"""
+        """Тест пустой категори"""
         # Создаем и проверяем пустую категорию
         empty_category = Category("Пустая", "Нет товаров", [])
         self.assertEqual(empty_category.name, "Пустая")
