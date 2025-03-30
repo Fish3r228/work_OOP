@@ -72,7 +72,7 @@ class TestCategory(unittest.TestCase):
         category = Category("Тестовая", "Описание", [self.product1])
         expected_str = (
             "Тестовая, количество продуктов: 1 шт.\n"
-            "Товар1, Описание1, 1000.0 руб., Остаток: 5 шт."
+            "Товар1, Описание1, 1000.0 руб., Остаток: 5 шт"
         )
         self.assertEqual(str(category), expected_str)
 
