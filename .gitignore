@@ -1,2 +1,4 @@
-htmlcov/
-htmlcov/
+../htmlcov/
+# Игнорировать все файлы .pyc и папки __pycache__
+*.pyc
+__pycache__/
