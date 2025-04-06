@@ -14,10 +14,10 @@ class Product:
     def new_product(cls, product_data):
         """Класс-метод для создания продукта из словаря"""
         return cls(
-            name=product_data['name'],
-            description=product_data['description'],
-            price=product_data['price'],
-            quantity=product_data['quantity']
+            name=product_data["name"],
+            description=product_data["description"],
+            price=product_data["price"],
+            quantity=product_data["quantity"],
         )
 
     @property
@@ -41,7 +41,7 @@ class TestProduct(unittest.TestCase):
             "name": "Test Product",
             "description": "Test Description",
             "price": 1000.0,
-            "quantity": 10
+            "quantity": 10,
         }
         self.product = Product.new_product(self.product_data)
         self.logger = logging.getLogger(__name__)
@@ -60,12 +60,12 @@ class TestProduct(unittest.TestCase):
 
     def test_price_setter_invalid(self):
         """Тест установки некорректной цены"""
-        with self.assertLogs(logger=__name__, level='WARNING') as cm:
+        with self.assertLogs(logger=__name__, level="WARNING") as cm:
             self.product.price = -100
         self.assertIn("Цена не должна быть нулевая или отрицательная", cm.output[0])
         self.assertEqual(self.product.price, 1000.0)  # Цена не должна измениться
 
-        with self.assertLogs(logger=__name__, level='WARNING') as cm:
+        with self.assertLogs(logger=__name__, level="WARNING") as cm:
             self.product.price = 0
         self.assertIn("Цена не должна быть нулевая или отрицательная", cm.output[0])
         self.assertEqual(self.product.price, 1000.0)  # Цена не должна измениться
@@ -76,7 +76,7 @@ class TestProduct(unittest.TestCase):
             "name": "New Product",
             "description": "New Description",
             "price": 2000.0,
-            "quantity": 5
+            "quantity": 5,
         }
         new_product = Product.new_product(new_data)
         self.assertIsInstance(new_product, Product)

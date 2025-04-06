@@ -1,5 +1,5 @@
 import pytest
-from src.magic import Product, Category
+from src.magic import Category, Product
 
 
 class TestProduct:
@@ -36,7 +36,7 @@ class TestCategory:
         return [
             Product("Товар1", "", 100, 5),
             Product("Товар2", "", 200, 3),
-            Product("Товар3", "", 300, 2)
+            Product("Товар3", "", 300, 2),
         ]
 
     def test_category_creation(self, sample_products):
@@ -44,7 +44,7 @@ class TestCategory:
         category = Category("Электроника", "Техника", sample_products)
         assert category.name == "Электроника"
         assert category.description == "Техника"
-        assert len(category.products.split('\n')) == 3
+        assert len(category.products.split("\n")) == 3
 
     def test_category_str(self, sample_products):
         """Тест строкового представления категории"""
