@@ -1,6 +1,6 @@
 import unittest
 
-from src.products import Category, Product
+from src.shop_classes import Category, Product
 
 
 class TestProduct(unittest.TestCase):

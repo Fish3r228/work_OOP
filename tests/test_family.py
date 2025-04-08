@@ -1,5 +1,5 @@
 import pytest
-from src.inheritance import Product, Smartphone, LawnGrass, Category
+from src.family import Product, Smartphone, LawnGrass, Category
 
 
 class TestProductAddition:
