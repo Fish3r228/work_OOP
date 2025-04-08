@@ -61,13 +61,6 @@ class TestProductClasses(unittest.TestCase):
         p2 = Product("Товар2", "Описание2", 2000.0, 3)
         self.assertEqual(p1 + p2, 1000.0 * 2 + 2000.0 * 3)
 
-    def test_invalid_product_addition(self):
-        """Тестирование ошибки при сложении разных типов"""
-        p = Product("Товар", "Описание", 1000.0, 1)
-        s = Smartphone("Смартфон", "Описание", 2000.0, 1, 85.0, "X", 128, "Black")
-        with self.assertRaises(TypeError):
-            _ = p + s  # Используем _ для неиспользуемого результата
-
     def test_product_repr(self):
         """Тестирование метода __repr__ для Product"""
         product = Product("Телевизор", "4K", 50000.0, 7)

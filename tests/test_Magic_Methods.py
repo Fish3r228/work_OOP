@@ -1,5 +1,5 @@
 import pytest
-from src.magic import Category, Product
+from src.Magic_Methods import Category, Product
 
 
 class TestProduct:

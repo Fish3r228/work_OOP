@@ -1,12 +1,18 @@
 from abc import ABC, abstractmethod
-from typing import Union
 
 
 class BaseProduct(ABC):
-    """Абстрактный базовый класс для всех продуктов"""
+    """Абстрактный базовый класс для всех продуктов.
+
+    Определяет обязательные методы, которые должны быть реализованы в дочерних классах.
+    """
 
     @abstractmethod
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        """Инициализация продукта.
+
+        Args:
+            name (str): Название продукта."""
         self.name = name
         self.description = description
         self.price = price
@@ -14,50 +20,64 @@ class BaseProduct(ABC):
 
     @abstractmethod
     def __str__(self) -> str:
+        """Возвращает строковое представление продукта."""
         pass
 
     @abstractmethod
-    def __add__(self, other) -> Union[float, TypeError]:
+    def __add__(self, other):
+        """Определяет логику сложения продуктов."""
         pass
 
 
 class PrintInitMixin:
-    """Миксин для вывода информации о создании объекта"""
+    """Миксин, выводящий информацию о создании объекта.
+
+    При создании экземпляра класса выводит его название и переданные аргументы.
+    """
+
     def __init__(self, *args, **kwargs):
+        """Инициализация миксина."""
         super().__init__(*args, **kwargs)
-        class_name = self.__class__.__name__
-        params = ", ".join([repr(arg) for arg in args] + [f"{k}={repr(v)}" for k, v in kwargs.items()])
-        print(f"{class_name}({params})")
+        print(f"{self.__class__.__name__}({', '.join(map(repr, args))})")
 
 
 class Product(PrintInitMixin, BaseProduct):
-    """Базовый класс продукта, реализующий абстрактные методы"""
+    """Базовый класс продукта.
+
+    Реализует абстрактные методы BaseProduct и добавляет логику вывода и сложения товаров.
+    """
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        """Инициализация продукта."""
         super().__init__(name, description, price, quantity)
 
     def __str__(self):
+        """Возвращает строковое представление продукта."""
         return f"{self.name}, {int(self.price)} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        if not isinstance(other, Product):
-            raise TypeError("Можно складывать только объекты Product")
-        if type(self) != type(other):
+        """Складывает два продукта одного типа."""
+        if not isinstance(other, type(self)):
             raise TypeError(f"Нельзя складывать {type(self).__name__} и {type(other).__name__}")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
     def __repr__(self):
-        return (f"{self.__class__.__name__}(name={repr(self.name)}, "
+        """Возвращает строковое представление для отладки."""
+        return (f"{self.__class__.__name__}("
+                f"name={repr(self.name)}, "
                 f"description={repr(self.description)}, "
                 f"price={repr(self.price)}, "
                 f"quantity={repr(self.quantity)})")
 
 
 class Smartphone(Product):
-    """Класс смартфона, наследующий от Product"""
+    """Класс, представляющий смартфон.
 
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 efficiency: float, model: str, memory: int, color: str):
+    Наследует функциональность Product и добавляет специфичные для смартфона атрибуты.
+    """
+
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+        """Инициализация смартфона."""
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
@@ -65,16 +85,16 @@ class Smartphone(Product):
         self.color = color
 
     def __str__(self):
-        base_str = super().__str__()
-        return (f"{base_str}\n"
+        """Возвращает строковое представление смартфона."""
+        return (f"{super().__str__()}\n"
                 f"Производительность: {self.efficiency}%, "
                 f"Модель: {self.model}, "
                 f"Память: {self.memory}GB, "
                 f"Цвет: {self.color}")
 
     def __repr__(self):
-        base_repr = super().__repr__()[:-1]  # Убираем закрывающую скобку
-        return (f"{base_repr}, "
+        """Возвращает строковое представление для отладки."""
+        return (f"{super().__repr__()[:-1]}, "
                 f"efficiency={repr(self.efficiency)}, "
                 f"model={repr(self.model)}, "
                 f"memory={repr(self.memory)}, "
@@ -82,25 +102,28 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-    """Класс газонной травы, наследующий от Product"""
+    """Класс, представляющий газонную траву.
 
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 country: str, germination_period: str, color: str):
+    Наследует функциональность Product и добавляет специфичные атрибуты.
+    """
+
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
+        """Инициализация газонной травы."""
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
         self.color = color
 
     def __str__(self):
-        base_str = super().__str__()
-        return (f"{base_str}\n"
+        """Возвращает строковое представление газонной травы."""
+        return (f"{super().__str__()}\n"
                 f"Страна: {self.country}, "
                 f"Срок прорастания: {self.germination_period}, "
                 f"Цвет: {self.color}")
 
     def __repr__(self):
-        base_repr = super().__repr__()[:-1]  # Убираем закрывающую скобку
-        return (f"{base_repr}, "
+        """Возвращает строковое представление для отладки."""
+        return (f"{super().__repr__()[:-1]}, "
                 f"country={repr(self.country)}, "
                 f"germination_period={repr(self.germination_period)}, "
                 f"color={repr(self.color)})")
